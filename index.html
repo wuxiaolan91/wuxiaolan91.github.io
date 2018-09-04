@@ -159,6 +159,256 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2018年8月31日分页采坑记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/01/2018年8月31日分页采坑记/">2018年8月31日sequelize分页采坑记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/01/2018年8月31日分页采坑记/" class="archive-article-date">
+  	<time datetime="2018-09-01T04:03:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我看现在后台管理系统访问用户列表的接口返回的越来越慢,<br>所以我开始加入分页功能.</p>
+<p>ui 选的是 element 的 <code>Pagination</code>组件<br>后端用的是 orm 为 <code>sequelize</code> 驱动的 nodejs</p>
+<p>前端怎么做大家应该都比较清楚, 我就说说后端这边吧.</p>
+<ol>
+<li>我用了 <code>findAndCountAll</code>方法</li>
+</ol>
+<p>这个方法会在查出列表记录的同时, 还会返回符合你查询列表数据的条数</p>
+<p>我写了个接口 <code>getUserList</code></p>
+<p>参数 currentPage 就是当前是第几条.<br>参数 count 是每次查询几条数据</p>
+<pre><code class="javascript">router.get(&#39;/getUserList&#39;, async (ctx, next) =&gt; {
+  let {currentPage=1, count=10} = ctx.request.header;
+  let offset = (currentPage - 1) * count;
+  let userList = await models.user.findAllAndCount({
+    limit: parseInt(count),
+    offset,
+    include: [
+     {
+         model: {
+        explore
+     }
+    ]
+  }).then(res =&gt; {
+    let result = {};
+    result.data = res.rows;
+    result.totalCount = res.count;
+    return result;
+  });
+  ctx.body = userList;
+});
+</code></pre>
+<p><code>findAllAndCount</code>和 findAll 方法返回的不一样,它的返回是</p>
+<pre><code>{
+    rows: x, // 列表数据
+    count: x // 返回的总条数 (不受 limit 和 offset 影响,用于做分页
+}
+</code></pre><p>可是查出来却发现数据其实数据不大对.<br>实际上应该只有200条,查出来的却有250条.<br>我直接写 sql 查询count(*) 也是200条.<br>所以250这个数据显然不对<br>我查了下,<br>sequelize 的 github 2016年就有人提了这个issue 是</p>
+<pre><code>result.count for findAndCountAll is incorrect with include
+</code></pre><p>看来不止我 一个人碰到这种情况,<br>但是好奇怪啊,但是这里为我点明了一个出现 bug 的规律.<br>那就是条数错误的情况大家都发生在查询里含有 include 的时候,<br>国内的一位开发就直接的说出了什么情况下返回的 count 会是错误的</p>
+<blockquote>
+<p>如下，Sequelize查询的数据表只有14条数据，但查询结果是36，只要不加include条件就是正确的14，是带上了include中的Comments表的数据，求解</p>
+</blockquote>
+<p>终于真相大白了.<br>有开发说了解决办法</p>
+<blockquote>
+<p>distinct:true //这一句可以去重，主表是14条，count就是14</p>
+</blockquote>
+<p>我加了之后,返回的 count 果然正常了.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/01/2018年8月31日分页采坑记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/10/mp/">mp</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/10/mp/" class="archive-article-date">
+  	<time datetime="2018-07-10T01:46:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="小程序采坑指南"><a href="#小程序采坑指南" class="headerlink" title="小程序采坑指南"></a>小程序采坑指南</h1><h2 id="获取用户信息"><a href="#获取用户信息" class="headerlink" title="获取用户信息"></a>获取用户信息</h2><p>虽然我觉得小程序的获取用户信息必须先点按钮, 然后才能获取用户信息这个很渣, 但是我们还是得遵守这个规则<br>我们项目其实是想获取用户的两个信息</p>
+<ol>
+<li>用户的 openId</li>
+<li>用户的个人信息(昵称, 头像)</li>
+</ol>
+<p>我专门写了一个登陆页面. 用以判断.当用户没有登陆的时候可以跳到这个页面<br>我把这段代码放到了App.vue 的 onLaunch 和 onShow 方法里,可是感觉都不准.<br>就是会有的时候跳有的时候不跳<br>放到 index.vue 的 mounted 里倒是准的</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">小程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/10/mp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-fullstack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/28/fullstack/">fullstack</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/28/fullstack/" class="archive-article-date">
+  	<time datetime="2018-05-28T06:49:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="我推荐的全栈方案"><a href="#我推荐的全栈方案" class="headerlink" title="我推荐的全栈方案"></a>我推荐的全栈方案</h1><p>因为我是和妹妹一起创业, 负责技术的就我一个人<br>所以,我最近正式的开始了自己的全栈之路<br>我现在的技术方案:<br>vue + 小程序<br>后端: mysql + sequelize + koa2 + koa-router</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/28/fullstack/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-test" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -452,6 +702,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">react</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">小程序</a>
               </li>
             
             <div class="clearfix"></div>
