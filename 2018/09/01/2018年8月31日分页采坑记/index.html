@@ -8,16 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>2018年8月31日sequelize分页采坑记 | 格格的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我看现在后台管理系统访问用户列表的接口返回的越来越慢,所以我开始加入分页功能. ui 选的是 element 的 Pagination组件后端用的是 orm 为 sequelize 驱动的 nodejs 前端怎么做大家应该都比较清楚, 我就说说后端这边吧.  我用了 findAndCountAll方法  这个方法会在查出列表记录的同时, 还会返回符合你查询列表数据的条数 我写了个接口 getUse">
+  <meta name="description" content="一. 需求我看现在后台管理系统访问用户列表的接口返回的越来越慢,之前因为数据少,我是没做分页的,现在眼看数据越来越多,返回也越来越慢(因为这个接口还有一些关联查询),我开始给它加入分页功能. ui 选的是 Element 的 Pagination组件后端用的是 ORM 为 Sequelize 驱动的 nodejs 前端怎么做大家应该都比较清楚, 我就说说后端这边吧.我用了 findAndCount">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2018年8月31日sequelize分页采坑记">
 <meta property="og:url" content="http://yoursite.com/2018/09/01/2018年8月31日分页采坑记/index.html">
 <meta property="og:site_name" content="格格的博客">
-<meta property="og:description" content="我看现在后台管理系统访问用户列表的接口返回的越来越慢,所以我开始加入分页功能. ui 选的是 element 的 Pagination组件后端用的是 orm 为 sequelize 驱动的 nodejs 前端怎么做大家应该都比较清楚, 我就说说后端这边吧.  我用了 findAndCountAll方法  这个方法会在查出列表记录的同时, 还会返回符合你查询列表数据的条数 我写了个接口 getUse">
-<meta property="og:updated_time" content="2018-09-04T03:45:31.362Z">
+<meta property="og:description" content="一. 需求我看现在后台管理系统访问用户列表的接口返回的越来越慢,之前因为数据少,我是没做分页的,现在眼看数据越来越多,返回也越来越慢(因为这个接口还有一些关联查询),我开始给它加入分页功能. ui 选的是 Element 的 Pagination组件后端用的是 ORM 为 Sequelize 驱动的 nodejs 前端怎么做大家应该都比较清楚, 我就说说后端这边吧.我用了 findAndCount">
+<meta property="og:image" content="http://peiimq8ax.bkt.clouddn.com/paging">
+<meta property="og:image" content="http://peiimq8ax.bkt.clouddn.com/WX20180904-120407.png">
+<meta property="og:updated_time" content="2018-09-04T04:06:08.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2018年8月31日sequelize分页采坑记">
-<meta name="twitter:description" content="我看现在后台管理系统访问用户列表的接口返回的越来越慢,所以我开始加入分页功能. ui 选的是 element 的 Pagination组件后端用的是 orm 为 sequelize 驱动的 nodejs 前端怎么做大家应该都比较清楚, 我就说说后端这边吧.  我用了 findAndCountAll方法  这个方法会在查出列表记录的同时, 还会返回符合你查询列表数据的条数 我写了个接口 getUse">
+<meta name="twitter:description" content="一. 需求我看现在后台管理系统访问用户列表的接口返回的越来越慢,之前因为数据少,我是没做分页的,现在眼看数据越来越多,返回也越来越慢(因为这个接口还有一些关联查询),我开始给它加入分页功能. ui 选的是 Element 的 Pagination组件后端用的是 ORM 为 Sequelize 驱动的 nodejs 前端怎么做大家应该都比较清楚, 我就说说后端这边吧.我用了 findAndCount">
+<meta name="twitter:image" content="http://peiimq8ax.bkt.clouddn.com/paging">
   
     <link rel="alternative" href="/atom.xml" title="格格的博客" type="application/atom+xml">
   
@@ -181,15 +184,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我看现在后台管理系统访问用户列表的接口返回的越来越慢,<br>所以我开始加入分页功能.</p>
-<p>ui 选的是 element 的 <code>Pagination</code>组件<br>后端用的是 orm 为 <code>sequelize</code> 驱动的 nodejs</p>
-<p>前端怎么做大家应该都比较清楚, 我就说说后端这边吧.</p>
-<ol>
-<li>我用了 <code>findAndCountAll</code>方法</li>
-</ol>
+        <h2 id="一-需求"><a href="#一-需求" class="headerlink" title="一. 需求"></a>一. 需求</h2><p>我看现在后台管理系统访问用户列表的接口返回的越来越慢,之前因为数据少,我是没做分页的,现在眼看数据越来越多,返回也越来越慢(因为这个接口还有一些关联查询),我开始给它加入分页功能.</p>
+<p>ui 选的是 Element 的 <code>Pagination</code>组件<br><img src="http://peiimq8ax.bkt.clouddn.com/paging" alt="分页"><br>后端用的是 <code>ORM</code> 为 <code>Sequelize</code> 驱动的 nodejs</p>
+<p>前端怎么做大家应该都比较清楚, 我就说说后端这边吧.<br>我用了 <code>findAndCountAll</code>方法</p>
 <p>这个方法会在查出列表记录的同时, 还会返回符合你查询列表数据的条数</p>
-<p>我写了个接口 <code>getUserList</code></p>
-<p>参数 currentPage 就是当前是第几条.<br>参数 count 是每次查询几条数据</p>
+<h2 id="二-遇到的坑"><a href="#二-遇到的坑" class="headerlink" title="二. 遇到的坑~"></a>二. 遇到的坑~</h2><p>我写了个接口 <code>getUserList</code></p>
+<ul>
+<li>参数 currentPage 就是当前是第几条.</li>
+<li>参数 count 是每次查询几条数据</li>
+</ul>
 <pre><code class="javascript">router.get(&#39;/getUserList&#39;, async (ctx, next) =&gt; {
   let {currentPage=1, count=10} = ctx.request.header;
   let offset = (currentPage - 1) * count;
@@ -212,19 +215,25 @@
 });
 </code></pre>
 <p><code>findAllAndCount</code>和 findAll 方法返回的不一样,它的返回是</p>
-<pre><code>{
-    rows: x, // 列表数据
-    count: x // 返回的总条数 (不受 limit 和 offset 影响,用于做分页
-}
-</code></pre><p>可是查出来却发现数据其实数据不大对.<br>实际上应该只有200条,查出来的却有250条.<br>我直接写 sql 查询count(*) 也是200条.<br>所以250这个数据显然不对<br>我查了下,<br>sequelize 的 github 2016年就有人提了这个issue 是</p>
+<ul>
+<li>res.rows, 列表数据</li>
+<li>count, 返回的总条数 (不受 limit 和 offset 影响,分页的关键数据)</li>
+</ul>
+<p>可是查出来却发现数据其实数据不大对.<br>实际上应该只有 200 条,查出来的却有 250 条.</p>
+<p>我直接写 sql 查询<br><code>select count(*) user</code> 也是 200 条.<br>所以 250 这个数据显然不对</p>
+<p>好了,去问问谷歌爸爸吧~</p>
+<p>sequelize 的 github 2016年就有人提了这个issue</p>
 <pre><code>result.count for findAndCountAll is incorrect with include
-</code></pre><p>看来不止我 一个人碰到这种情况,<br>但是好奇怪啊,但是这里为我点明了一个出现 bug 的规律.<br>那就是条数错误的情况大家都发生在查询里含有 include 的时候,<br>国内的一位开发就直接的说出了什么情况下返回的 count 会是错误的</p>
+</code></pre><p><img src="http://peiimq8ax.bkt.clouddn.com/WX20180904-120407.png" alt="count is wrong"></p>
+<p>看来不止我 一个人碰到这种情况~</p>
+<h1 id="三-解决问题"><a href="#三-解决问题" class="headerlink" title="三. 解决问题"></a>三. 解决问题</h1><p>但是好奇怪啊,但是这里为我点明了一个出现 bug 的规律.</p>
+<p>那就是条数错误的情况大家都发生在查询里含有 include 的时候,<br>国内的一位开发就直接的说出了什么情况下返回的 count 会是错误的</p>
 <blockquote>
 <p>如下，Sequelize查询的数据表只有14条数据，但查询结果是36，只要不加include条件就是正确的14，是带上了include中的Comments表的数据，求解</p>
 </blockquote>
 <p>终于真相大白了.<br>有开发说了解决办法</p>
 <blockquote>
-<p>distinct:true //这一句可以去重，主表是14条，count就是14</p>
+<p>distinct:true //这一句可以去重，它返回的 count 不会把你的 include 的数量算进去</p>
 </blockquote>
 <p>我加了之后,返回的 count 果然正常了.</p>
 
