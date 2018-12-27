@@ -6,20 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>2018年9月6日 sequelize 之 include 的 where 采坑记 | 格格的博客</title>
+  <title>Archives: 2018/12 | 格格的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一.需求在我们小程序的首页, 需要显示某个分类下的约稿函  在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖. 但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,但是 有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2018年9月6日 sequelize 之 include 的 where 采坑记">
-<meta property="og:url" content="http://yoursite.com/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="格格的博客">
+<meta property="og:url" content="http://yoursite.com/archives/2018/12/index.html">
 <meta property="og:site_name" content="格格的博客">
-<meta property="og:description" content="一.需求在我们小程序的首页, 需要显示某个分类下的约稿函  在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖. 但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,但是 有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后">
-<meta property="og:image" content="http://assets.ytougao.com/WX20180906-155823@2x.png">
-<meta property="og:updated_time" content="2018-10-21T11:53:53.651Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018年9月6日 sequelize 之 include 的 where 采坑记">
-<meta name="twitter:description" content="一.需求在我们小程序的首页, 需要显示某个分类下的约稿函  在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖. 但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,但是 有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后">
-<meta name="twitter:image" content="http://assets.ytougao.com/WX20180906-155823@2x.png">
+<meta name="twitter:title" content="格格的博客">
   
     <link rel="alternative" href="/atom.xml" title="格格的博客" type="application/atom+xml">
   
@@ -163,200 +157,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-2018年9月6日-sequelize-之-include-的-where-采坑记" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      2018年9月6日 sequelize 之 include 的 where 采坑记
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/12/27/服务器迁移/" class="archive-article-date">
+  	<time datetime="2018-12-27T03:24:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/12/27/服务器迁移/">服务器迁移</a>
     </h1>
   
 
-        
-        <a href="/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/" class="archive-article-date">
-  	<time datetime="2018-09-06T07:19:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一-需求"><a href="#一-需求" class="headerlink" title="一.需求"></a>一.需求</h2><p>在我们小程序的首页, 需要显示某个分类下的约稿函</p>
-<p><img src="http://assets.ytougao.com/WX20180906-155823@2x.png" alt="约稿函列表"></p>
-<p>在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖.</p>
-<p>但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,<br>但是 <em>有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后台加精,才会显示给用户看的 </em></p>
-<p>这个就像微信公众号的加精一样.</p>
-<p>所以我的需求就是:只有当一家约稿函有加精过的探路帖,才给用户显示已探.</p>
-<h2 id="二-遇到的问题"><a href="#二-遇到的问题" class="headerlink" title="二. 遇到的问题"></a>二. 遇到的问题</h2><p>但是当我在 include 的 explore 里加上 </p>
-<pre><code>    include: [
-      {
-        model: models.explore,
-        attributes: [&#39;id&#39;],
-        where: {
-          isActive: 1
-        },
-      }
-    ]
-</code></pre><p>这里有个筛选条件,我的原意是 where 等于1才返回.<br>ok. 加上后,我发现返回的约稿函列表不正常了.</p>
-<p>仔细一看发现一定是满足它的探路帖里有 isActive 是1的约稿函才会返回.</p>
-<p><strong>what</strong>, 为什么 include 里符合条件的 parent 才会返回. </p>
-<p>也就是说,如果我一篇约稿函下没有加精的探路帖,现在约稿函都不会返回了!</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>搜谷歌,在这里找到了解决方法(github)[<a href="https://github.com/sequelize/sequelize/issues/1794" target="_blank" rel="noopener">https://github.com/sequelize/sequelize/issues/1794</a>]</p>
-<pre><code>required: false so:
-include: [{ model: Profile, where: { profile_name: &#39;abc&#39; }, attributes: [&#39;profile_name&#39;], required: false }
-</code></pre><p>看见木有,其实解决起来很简单,只不过这个问题不是我想的那样(我默认是不会认为子 include 会去对 parent 造成过滤的,像之前我碰到了一个需要include 对 parent 造成过滤,我也是写在 parent 的 where 里)</p>
-<p>代码改成这样之后,就好了</p>
-<pre><code class="javascript">    include: [
-      {
-        attributes: [&#39;id&#39;],
-        model: models.explore,
-        where: {
-          isActive: 1
-        },
-        required: false // 解决的代码就是这一行,加上 required: false
-      }
-    ]
-</code></pre>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/12/27/服务器迁移/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          服务器迁移
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/09/01/2018年8月31日分页采坑记/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2018年8月31日sequelize分页采坑记</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -380,8 +223,8 @@ include: [{ model: Profile, where: { profile_name: &#39;abc&#39; }, attributes: 
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>2018年9月6日 sequelize 之 include 的 where 采坑记 | 格格的博客</title>
+  <title>服务器迁移 | 格格的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一.需求在我们小程序的首页, 需要显示某个分类下的约稿函  在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖. 但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,但是 有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后">
+  <meta name="description" content="一. 服务器篇&amp;amp; cdn服务器因为之前的服务器1g 内存1m带宽的明显不够用.带宽已经超载了.所以导致接口返回的很慢.所以就迁移到了双十一购买的服务器上.新的服务器一次租买了三年阿里云的服务器分很多种.比如通用型,内存型,增强型等.这次买的是通用型服务器.8g内存2核5m带宽.至少明年年末都是够用的.而且因为是双十一,所以价格非常美丽.平常这种配置的三年要7千.我双十一一次性买三年的才2千">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018年9月6日 sequelize 之 include 的 where 采坑记">
-<meta property="og:url" content="http://yoursite.com/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/index.html">
+<meta property="og:title" content="服务器迁移">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/服务器迁移/index.html">
 <meta property="og:site_name" content="格格的博客">
-<meta property="og:description" content="一.需求在我们小程序的首页, 需要显示某个分类下的约稿函  在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖. 但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,但是 有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后">
-<meta property="og:image" content="http://assets.ytougao.com/WX20180906-155823@2x.png">
-<meta property="og:updated_time" content="2018-10-21T11:53:53.651Z">
+<meta property="og:description" content="一. 服务器篇&amp;amp; cdn服务器因为之前的服务器1g 内存1m带宽的明显不够用.带宽已经超载了.所以导致接口返回的很慢.所以就迁移到了双十一购买的服务器上.新的服务器一次租买了三年阿里云的服务器分很多种.比如通用型,内存型,增强型等.这次买的是通用型服务器.8g内存2核5m带宽.至少明年年末都是够用的.而且因为是双十一,所以价格非常美丽.平常这种配置的三年要7千.我双十一一次性买三年的才2千">
+<meta property="og:updated_time" content="2018-12-27T03:42:17.120Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018年9月6日 sequelize 之 include 的 where 采坑记">
-<meta name="twitter:description" content="一.需求在我们小程序的首页, 需要显示某个分类下的约稿函  在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖. 但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,但是 有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后">
-<meta name="twitter:image" content="http://assets.ytougao.com/WX20180906-155823@2x.png">
+<meta name="twitter:title" content="服务器迁移">
+<meta name="twitter:description" content="一. 服务器篇&amp;amp; cdn服务器因为之前的服务器1g 内存1m带宽的明显不够用.带宽已经超载了.所以导致接口返回的很慢.所以就迁移到了双十一购买的服务器上.新的服务器一次租买了三年阿里云的服务器分很多种.比如通用型,内存型,增强型等.这次买的是通用型服务器.8g内存2核5m带宽.至少明年年末都是够用的.而且因为是双十一,所以价格非常美丽.平常这种配置的三年要7千.我双十一一次性买三年的才2千">
   
     <link rel="alternative" href="/atom.xml" title="格格的博客" type="application/atom+xml">
   
@@ -163,62 +161,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-2018年9月6日-sequelize-之-include-的-where-采坑记" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-服务器迁移" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      2018年9月6日 sequelize 之 include 的 where 采坑记
+      服务器迁移
     </h1>
   
 
         
-        <a href="/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/" class="archive-article-date">
-  	<time datetime="2018-09-06T07:19:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-06</time>
+        <a href="/2018/12/27/服务器迁移/" class="archive-article-date">
+  	<time datetime="2018-12-27T03:24:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一-需求"><a href="#一-需求" class="headerlink" title="一.需求"></a>一.需求</h2><p>在我们小程序的首页, 需要显示某个分类下的约稿函</p>
-<p><img src="http://assets.ytougao.com/WX20180906-155823@2x.png" alt="约稿函列表"></p>
-<p>在这个接口里,会在 include 里带上它 explore 的 id, 然后我在小程序里判断一个约稿函对象的 explores数组大于0,就表示这家公众号有探路帖.</p>
-<p>但是我发现一个问题.比如”一千灵异夜”这家公众号,我们小程序里有多款探路帖,所以它在页面上会显示”已探”,<br>但是 <em>有探路帖不代表就要显示已探, 因为我们的探路帖是要经过我们后台加精,才会显示给用户看的 </em></p>
-<p>这个就像微信公众号的加精一样.</p>
-<p>所以我的需求就是:只有当一家约稿函有加精过的探路帖,才给用户显示已探.</p>
-<h2 id="二-遇到的问题"><a href="#二-遇到的问题" class="headerlink" title="二. 遇到的问题"></a>二. 遇到的问题</h2><p>但是当我在 include 的 explore 里加上 </p>
-<pre><code>    include: [
-      {
-        model: models.explore,
-        attributes: [&#39;id&#39;],
-        where: {
-          isActive: 1
-        },
-      }
-    ]
-</code></pre><p>这里有个筛选条件,我的原意是 where 等于1才返回.<br>ok. 加上后,我发现返回的约稿函列表不正常了.</p>
-<p>仔细一看发现一定是满足它的探路帖里有 isActive 是1的约稿函才会返回.</p>
-<p><strong>what</strong>, 为什么 include 里符合条件的 parent 才会返回. </p>
-<p>也就是说,如果我一篇约稿函下没有加精的探路帖,现在约稿函都不会返回了!</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>搜谷歌,在这里找到了解决方法(github)[<a href="https://github.com/sequelize/sequelize/issues/1794" target="_blank" rel="noopener">https://github.com/sequelize/sequelize/issues/1794</a>]</p>
-<pre><code>required: false so:
-include: [{ model: Profile, where: { profile_name: &#39;abc&#39; }, attributes: [&#39;profile_name&#39;], required: false }
-</code></pre><p>看见木有,其实解决起来很简单,只不过这个问题不是我想的那样(我默认是不会认为子 include 会去对 parent 造成过滤的,像之前我碰到了一个需要include 对 parent 造成过滤,我也是写在 parent 的 where 里)</p>
-<p>代码改成这样之后,就好了</p>
-<pre><code class="javascript">    include: [
-      {
-        attributes: [&#39;id&#39;],
-        model: models.explore,
-        where: {
-          isActive: 1
-        },
-        required: false // 解决的代码就是这一行,加上 required: false
-      }
-    ]
-</code></pre>
+        <h1 id="一-服务器篇-amp-cdn"><a href="#一-服务器篇-amp-cdn" class="headerlink" title="一. 服务器篇&amp; cdn"></a>一. 服务器篇&amp; cdn</h1><h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>因为之前的服务器1g 内存1m带宽的明显不够用.带宽已经超载了.所以导致接口返回的很慢.所以就迁移到了双十一购买的服务器上.<br>新的服务器一次租买了三年<br>阿里云的服务器分很多种.比如通用型,内存型,增强型等.<br>这次买的是通用型服务器.8g内存2核5m带宽.至少明年年末都是够用的.<br>而且因为是双十一,所以价格非常美丽.平常这种配置的三年要7千.我双十一一次性买三年的才2千左右.</p>
+<h2 id="cdn"><a href="#cdn" class="headerlink" title="cdn"></a>cdn</h2><p>用的是七牛的 cdn 服务.图片是放在上面的</p>
+<h2 id="二-后端服务"><a href="#二-后端服务" class="headerlink" title="二.后端服务"></a>二.后端服务</h2><p>后端用的是 nodejs,<br>为什么要用 nodejs,主要就是两点原因</p>
+<ol>
+<li>强大的生态(80w 个 node 包)</li>
+<li>前端友好</li>
+</ol>
+<p>这80w 个 node 包里就有你所知道各种数据库的驱动包( mongoose,mysql)</p>
 
       
 
@@ -298,7 +268,7 @@ include: [{ model: Profile, where: { profile_name: &#39;abc&#39; }, attributes: 
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/27/服务器迁移/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -312,18 +282,9 @@ include: [{ model: Profile, where: { profile_name: &#39;abc&#39; }, attributes: 
   
 <nav id="article-nav">
   
-    <a href="/2018/12/27/服务器迁移/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          服务器迁移
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/09/01/2018年8月31日分页采坑记/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2018年8月31日sequelize分页采坑记</div>
+    <a href="/2018/09/06/2018年9月6日-sequelize-之-include-的-where-采坑记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2018年9月6日 sequelize 之 include 的 where 采坑记</div>
       <i class="icon-circle-right"></i>
     </a>
   
