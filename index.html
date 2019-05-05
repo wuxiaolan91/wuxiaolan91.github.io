@@ -159,6 +159,123 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-小程序传图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/01/小程序传图/">upload  xiaochengxu&#39;s image to qiniu</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/01/小程序传图/" class="archive-article-date">
+  	<time datetime="2019-03-01T09:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>因为要做项目的”点评”功能,所以这次要开始在小程序里做上传图片功能了.<br>但是陆陆续续发现了一些问题.</p>
+<ol>
+<li>一张250kb 左右的图片整个传图流程竟然需要三四秒的样子才能传完.</li>
+<li>微信图片压缩 api: compressiMage 不但不起作用,反而压缩后传来的图片还大了点.试了几次均是如此.</li>
+</ol>
+<p>先来分析下问题1.<br>但是我看了下.微信本身上传图片和返回结果速度是 ok 的.<br>瓶颈主要是在我把图片传给七牛到它返回图片的 url 地址这一段.</p>
+<p>那.是不是因为图片太大了,才导致这么长时间呢?<br>查了下, 图片250kb 的样子. </p>
+<p>那试试图片压缩吧.<br>一试顿时觉得微信的 compressImage 功能是个鸡肋<br>压缩后会返回一个新地址,但是我用 getFileInfo 查了下,调用这个方法后,上传的 jpg 不但没有变小,图片反而更大了,变成了260多kb, 就算我把压缩比率调成10(总分100,分值越低压缩得越厉害)<br>不过这不排除我上传的图片本来就不是原图而是压缩图,所以压缩不了.<br>那我就只能改进我小程序的流程了.</p>
+<pre><code class="javascript">      wx.chooseImage({
+        count: 1,
+        sizeType: [&#39;compressed&#39;],
+        success: res =&gt; {
+          var filePath = res.tempFilePaths[0];
+          wx.getFileInfo({
+            filePath,
+            success(res) {
+              console.log(&quot;原文件大小&quot;, res.size);
+            }
+          });
+          wx.compressImage({
+            src: filePath, // 图片路径
+            quality: 10, // 压缩质量,
+            complete(res) {
+              console.log(&quot;压缩后返回&quot;);
+              console.log(res);
+
+              filePath = res.tempFilePath;
+              console.log(&quot;压缩图片回来啦&quot;);
+              wx.getFileInfo({
+                filePath,
+                success(res) {
+                  console.log(&quot;压缩后文件大小&quot;, res.size);
+                }
+              });
+            }
+          });
+          // wx.showLoading({
+          //   title: &#39;提交中...&#39;,
+          //   mask: true
+          // })
+        }
+      });
+</code></pre>
+<p>  我算了下,我随意选择的这张图片大概是200多 kb,说大不大,说小不小.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">小程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/01/小程序传图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-服务器迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -776,6 +893,86 @@ yarn start
 
 
   
+    <article id="post-readBook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/17/readBook/">他们说我是幸运的</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/17/readBook/" class="archive-article-date">
+  	<time datetime="2017-09-17T14:53:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://img3.doubanio.com/lpic/s28904875.jpg" alt="他们说我是幸运的"><br>终于把这本书看完了，作者根据自己的在大学时期被一个人强奸之后又在街头遇见加害人并且最后控告成功的经验写的小说.</p>
+<p>因为是亲身经历，写的很情真意切，也出现了很多觉得编都不敢那么编的离谱情节，<br>比如</p>
+<ol>
+<li>在大街上遇到强奸犯乐对方居然还敢主动搭讪</li>
+<li>在事情发生后几年，自己最好的朋友，而且也是自己的室友居然到自己刚离开出租屋的时候被强奸了，把爱丽丝（这本书的主人公）又拉回噩梦。</li>
+</ol>
+<p>话说回来，国外出版社尺度真大，作者敢直接在书里写自己不断吸食毒品的事情…</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/17/readBook/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
@@ -880,6 +1077,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">小程序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
             
             <div class="clearfix"></div>
